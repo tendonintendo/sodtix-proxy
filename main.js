@@ -3,22 +3,28 @@ const showToast = (msg) => {
     toast.className = 'toast';
     toast.textContent = msg;
     document.body.appendChild(toast);
-    setTimeout(() => toast.remove(), 1600); // Clean up DOM
+    setTimeout(() => toast.remove(), 1600);
 };
 
 async function handleTicket(type) {
-    // Note: We don't disable the button here so user can spam click
+    // 1. OPEN BLANK TAB IMMEDIATELY (Safari needs this to be sync with the click)
+    const newWindow = window.open('about:blank', '_blank');
+
     try {
         const response = await fetch(`/api/${type}`);
         const result = await response.json();
         const data = result && result.data;
 
         if (data && data.isOpen && data.link_url) {
-            window.open(data.link_url, '_blank', 'noopener,noreferrer');
+            // 2. UPDATE THE ALREADY OPENED TAB
+            newWindow.location.href = data.link_url;
         } else {
+            // 3. CLOSE TAB IF NOT OPEN AND SHOW TOAST
+            newWindow.close();
             showToast(`${type.toUpperCase()} NOT OPEN YET`);
         }
     } catch (err) {
+        newWindow.close();
         showToast("CONNECTION ERROR");
     }
 }
