@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sodtix Proxy</title>
+    <style>
+        body { background: #0b0b0b; color: #fff; display: flex; flex-direction: column; 
+               justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: sans-serif; gap: 20px; }
+        .btn {
+            width: 280px; padding: 20px; font-size: 16px; font-weight: 800; border: none;
+            border-radius: 12px; cursor: pointer; color: white; transition: transform 0.1s;
+        }
+        .btn:active { transform: scale(0.95); }
+        .presale { background: #6200ea; }
+        .general { background: #ff3e00; }
+        
+        /* Spammable Toast Styling */
+        .toast {
+            position: fixed; top: 20px; background: #ff4444; color: white;
+            padding: 12px 24px; border-radius: 8px; font-weight: bold;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            animation: slideIn 0.3s ease-out, fadeOut 0.3s 1.2s forwards;
+            pointer-events: none; z-index: 9999;
+        }
+        @keyframes slideIn { from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes fadeOut { to { opacity: 0; transform: translateY(-20px); } }
+    </style>
+</head>
+<body>
+    <button class="btn presale" onclick="handleTicket('presale')">ARTIST PRESALE</button>
+    <button class="btn general" onclick="handleTicket('general')">GENERAL SALES</button>
+    <script src="main.js"></script>
+</body>
+</html>
